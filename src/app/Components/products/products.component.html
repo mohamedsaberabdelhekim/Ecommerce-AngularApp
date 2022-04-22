@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="col-md-3">
+
+        <section style="background-color: #eee; ">
+            <div class="container py-5 ml-auto my-4">
+                <input type="text" class="form-control" placeholder="Enter  username" [(ngModel)]="clintname">
+                <button class="btn btn-secondary form-control mt-2" type="button" (click)="togg()">Buy</button>
+            </div>
+        </section>
+        <section style="background-color: #eee;">
+            <div class="container py-5 ml-auto my-4">
+
+                <span class="input-group-text mb-2">Select your Product</span>
+                <select class="form-control" [(ngModel)]="productName">
+          <option value="0" selected>ALL</option>
+          <option *ngFor="let items of ProductList" [value]="items.id" [hidden]="items.Quantity==0">{{items.Name}}
+          </option>
+
+        </select>
+
+            </div>
+        </section>
+        <section style="background-color: #eee;">
+            <div class="container py-5 ml-auto my-4">
+                <span class="input-group-text mb-2">Select your Category </span>
+                <select class="form-control" [(ngModel)]="categroyId">
+          <option value="0">ALL</option>
+          <option *ngFor="let items of categoriesList" [value]="items.id">{{items.Name}}</option>
+        </select>
+            </div>
+        </section>
+
+
+        <section style="background-color: #eee;">
+            <div class="container py-5 ml-auto my-4">
+                <input type="text" class="form-control" placeholder="Enter  your id number" [(ngModel)]="idnumber">
+                <select [(ngModel)]="selopdat" class="form-control">
+            <option>full</option>
+           <option>year</option>
+          <option>month</option>
+          <option>day</option>
+        </select>
+
+            </div>
+            <div [ngSwitch]="selopdat">
+                <div *ngSwitchCase="'full'">{{idnumber|idnum|date :"fullDate"}}</div>
+                <div *ngSwitchCase="'year'">{{idnumber|idnum|date :"YYYY"}}</div>
+                <div *ngSwitchCase="'month'">{{idnumber|idnum|date :"MM"}}</div>
+                <div *ngSwitchCase="'day'">{{idnumber|idnum|date :"dd"}}</div>
+
+            </div>
+        </section>
+        <section style="background-color: #eee;">
+            <div class="container py-5 ml-auto my-4">
+                <input type="text" id="a1" [(ngModel)]="credit_Card">
+                <div>
+
+                    <ng-container *ngIf='credit_Card!==""'>
+                        {{credit_Card |creditCard}}
+                    </ng-container>
+                </div>
+            </div>
+        </section>
+
+
+
+    </div>
+    <div class="col-md-9">
+        <section style="background-color: #eee;">
+            <div class="container py-5 ml-auto my-4">
+                <div class="row" *ngIf="flagsho">
+                    <ng-container *ngFor="let item of filterprodlist">
+                        <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 py-2" [hidden]="item.Quantity==0">
+
+                            <div class="card" [ngClass]="{'bg-warning':item.Quantity==1}" appShadow="green">
+
+
+                                <img src="{{item.image}}" class="card-img-top" alt="Laptop" />
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
+                                        <!-- <p class="small text-danger">{{date | date}}</p> -->
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">{{item.Name}}</h5>
+                                        <h5 class="text-dark mb-0">${{item.price}}</h5>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <p class="text-muted mb-0">Available: <span class="fw-bold">{{item.Quantity}}</span></p>
+                                        <button class="btn btn-primary" (click)="changecout(item)">buy Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </ng-container> -->
+                        </div>
+                    </ng-container>
+
+                </div>
+
+
+            </div>
+            <div *ngIf="!flagsho" class="text-center">
+                thank you {{clintname}}
+            </div>
+
+        </section>
+
+    </div>
+</div>

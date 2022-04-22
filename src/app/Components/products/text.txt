@@ -1,0 +1,35 @@
+[(ngModel)]='productName';
+[(ngModel)]='categroyId';
+
+
+selectChangeHandler () {
+    //update the ui
+    if(this.productName==0){
+      this.filterprodlist=Array.from(this.ProductList);
+      return;
+
+    }
+   this.filterprodlist=this.ProductList.filter((prod)=>prod.id==this.productName);
+
+
+  }
+
+  selectChangeHandlerCategroy () {
+    //update the ui
+    if(this.categroyId==0){
+      this.filterprodlist=Array.from(this.ProductList);
+      return;
+
+    }
+   this.filterprodlist=this.ProductList.filter((prod)=>prod.CateogryID==this.categroyId);
+
+
+  }
+
+
+  ngOnInit(): void {
+
+    this.selectChangeHandler();
+    this.selectChangeHandlerCategroy();
+
+  }
